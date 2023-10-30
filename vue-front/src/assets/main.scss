@@ -1,0 +1,60 @@
+@import "reset.css";
+
+
+html, body{
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+}
+
+body{
+  font-size: 1.6rem;
+  background-color: whitesmoke;
+}
+
+.btn{
+  margin: 1.4rem 0;
+  border-radius: 40px;
+  padding: 1.5rem 3rem;
+  text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 700;
+  text-decoration: none;
+    letter-spacing: 1px;
+  font-family: $jakarta;
+  display: inline-block;
+  background-color: $white;
+    border: 1px solid $blue;
+  color: $blue;
+  transition: all .2s ease-in-out;
+
+  &:hover{
+    background-color: $blue;
+    color: $white;
+    border-color: $white;
+  }
+}
+
+@keyframes fadeLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+@keyframes fadeRight {
+      from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+}
