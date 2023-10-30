@@ -95,10 +95,15 @@
 	&__text-img{
 		display: grid;
 		grid-template-columns: 1fr 1fr;
+		border-bottom: 3px solid $black;
 
 		&__text{
 			padding: 4rem;
 			box-sizing: border-box;
+			display: flex;
+			justify-content: center;
+			height: 100%;
+			flex-direction: column;
 		}
 
 		&__img{
