@@ -20,10 +20,34 @@
 		<div class='home__text-img'>
 			<div class='home__text-img__text'>
 				<h2>La galerie d'art</h2>
-				<p>Lorem ipsum dolor sit amet consectetur ad</p>
+				<p>Il vous est possible d'ajouter, de modifier et de supprimer des oeuvres du site.</p>
+				<RouterLink to='/' class='btn btn-reverse'>Les oeuvres</RouterLink>
 			</div>
 			<div class='home__text-img__img'>
 				<img src='/arts/img/oeuvre1.jpeg' alt='home' />
+			</div>
+			<div class='home__text-img__text'>
+				<h2>Les artistes</h2>
+				<p>Vous pouvez aussi ajouter de nouveaux artistes, les modifier et les supprimer.</p>
+				<RouterLink to='/' class='btn'>Les artistes</RouterLink>
+			</div>
+			<div class='home__text-img__img'>
+				<img src='/arts/img/oeuvre-paysage.jpeg' alt='home' />
+			</div>
+			<div class='home__text-img__img'>
+				<img src='/arts/img/oeuvre-space.jpeg' alt='home' />
+			</div>
+			<div class='home__text-img__text'>
+				<h2>À propos</h2>
+				<p>Ce projet a été réalisé en <strong>VueJS</strong> (front) et <strong>ExpressJS</strong> (API).</p>
+			</div>
+			<div class='home__text-img__img'>
+				<img src='/arts/img/oeuvre-eye.jpeg' alt='home' />
+			</div>
+			<div class='home__text-img__text'>
+				<h2>Projet</h2>
+				<p>Le projet est disponible sur mon GitHub. CSS made in China.</p>
+				<a href='https://github.com/EFREI-M1-Dev/Projet-Vue-Express-Suylo' class='btn btn-reverse' target='_blank'>Lien du dépôt</a>
 			</div>
 		</div>
 	</section>
@@ -45,7 +69,7 @@
 
 	p{
 		font-family: $opensans;
-		font-size: 1.6rem;
+		font-size: 2rem;
 		font-weight: 400;
 		margin: 2rem 0;
 	}
@@ -53,12 +77,12 @@
 
 	&__banner{
 		background-color: $blue;
-		padding: 5rem 2rem;
+		padding: 7.5rem 2rem;
 		color: $white;
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		place-items: center;
-		border-bottom: 3px solid $black;
+		border-bottom: 2px solid $black;
 
 
 		&__text{
@@ -77,15 +101,15 @@
 			}
 			&__absolute{
 				position: absolute;
-				top: 2rem;
-				left: 6rem;
+				top: 4rem;
+				left: 4rem;
 				animation: fadeRight .2s ease-in-out;
 				z-index: 3;
 			}
 			&__absolute2{
 				position: absolute;
-				bottom: 2rem;
-				right: 6rem;
+				bottom: 4rem;
+				right: 4rem;
 				z-index: -1;
 				animation: fadeRight .2s ease-in-out;
 			}
@@ -94,7 +118,7 @@
 
 	&__text-img{
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(4, 1fr);
 		border-bottom: 3px solid $black;
 
 		&__text{
@@ -104,10 +128,15 @@
 			justify-content: center;
 			height: 100%;
 			flex-direction: column;
+			border: 2px solid $black;
+			h2, p{
+				animation: fadeLeft .2s ease-in-out;
+			}
 		}
 
 		&__img{
-			border-left: 3px solid $black;
+			animation: fade .2s ease-in-out;
+			border: 2px solid $black;
 			img{
 
 				width: 100%;
