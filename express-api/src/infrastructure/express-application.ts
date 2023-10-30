@@ -1,7 +1,7 @@
 import { ExpressRouter } from './express-router';
 import { ExpressServer } from './express-server';
-import { ArtworkJSONService } from "../artwork/artwork.json-service";
-import { ArtworkService } from "../artwork/artwork.service";
+import { ArtworkJSONService } from '../artwork/artwork.json-service';
+import { ArtworkService } from '../artwork/artwork.service';
 import * as dotenv from 'dotenv';
 
 export class ExpressApplication {

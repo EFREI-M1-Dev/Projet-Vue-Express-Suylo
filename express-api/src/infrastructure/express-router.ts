@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { ArtworkService } from "../artwork/artwork.service";
-import { ArtworkController } from "../artwork/artwork.controller";
-import { ArtworkRouter } from "../artwork/artwork.router";
+import { ArtworkService } from '../artwork/artwork.service';
+import { ArtworkController } from '../artwork/artwork.controller';
+import { ArtworkRouter } from '../artwork/artwork.router';
 
 export class ExpressRouter {
     router = Router();

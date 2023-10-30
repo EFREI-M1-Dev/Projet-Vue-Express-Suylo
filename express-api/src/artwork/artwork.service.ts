@@ -1,7 +1,13 @@
-import {Artwork} from "./artwork";
+import { Artwork } from './artwork';
 export interface ArtworkService {
-    add(name: string, description: string, price: number, image: string, artistId: number): Artwork
-    getAll(): Artwork[]
-    getById(id: number): Artwork | null
-    deleteById(id: number): string
+    create(
+        name: string,
+        description: string,
+        price: number,
+        image: string,
+        artistId: number,
+    ): Artwork;
+    findAll(): Artwork[];
+    findById(id: number): Artwork | null;
+    deleteById(id: number): string;
 }
