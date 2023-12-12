@@ -7,7 +7,7 @@
 			<div class='home__banner__text'>
 				<h1>Bienvenue sur le site de la galerie d'art</h1>
 				<p>Cliquez ci-dessous pour découvrir toutes les oeuvres</p>
-				<RouterLink to='/' class='btn'>Découvrir la galerie</RouterLink>
+				<RouterLink to='/galerie' class='btn'>Découvrir la galerie</RouterLink>
 			</div>
 			<div class='home__banner__img'>
 				<img src='/arts/img/oeuvre1.jpeg' alt='home' />
@@ -82,7 +82,7 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		place-items: center;
-		border-bottom: 2px solid $black;
+		border-bottom: 1px solid $black;
 
 
 		&__text{
@@ -119,7 +119,7 @@
 	&__text-img{
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		border-bottom: 3px solid $black;
+		border-bottom: 1px solid $black;
 
 		&__text{
 			padding: 4rem;
@@ -128,7 +128,7 @@
 			justify-content: center;
 			height: 100%;
 			flex-direction: column;
-			border: 2px solid $black;
+			border: 1px solid $black;
 			h2, p{
 				animation: fadeLeft .2s ease-in-out;
 			}
@@ -136,7 +136,7 @@
 
 		&__img{
 			animation: fade .2s ease-in-out;
-			border: 2px solid $black;
+			border: 1px solid $black;
 			img{
 
 				width: 100%;
