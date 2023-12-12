@@ -44,6 +44,22 @@ export class ArtworkRouter {
             }
         });
 
+        this.router.put('/:id/edit', (req, res, next) => {
+            try {
+                const result = this.artworkController.updateById(
+                    req.body.id,
+                    req.body.name,
+                    req.body.description,
+                    req.body.price,
+                    req.body.image,
+                    req.body.artistId,
+                );
+                res.status(200).json(result);
+            } catch (error: unknown) {
+                next(error);
+            }
+        });
+
         this.router.delete('/:id', (req, res, next) => {
             try {
                 const result = this.artworkController.deleteById(

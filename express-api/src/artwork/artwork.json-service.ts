@@ -37,6 +37,46 @@ export class ArtworkJSONService implements ArtworkService {
         return art;
     }
 
+    updateById(
+        id: number,
+        name: string,
+        description: string,
+        price: number,
+        image: string,
+        artistId: number,
+    ): Artwork {
+        const artworks = JSON.parse(fs.readFileSync(this.filePath, 'utf8'));
+        let foundArt: Artwork | null = null;
+
+        artworks.forEach((art: Artwork) => {
+            if (art.id === id) {
+                foundArt = new Artwork(
+                    art.id,
+                    name,
+                    description,
+                    price,
+                    image,
+                    artistId,
+                );
+            }
+        });
+
+        if (foundArt === null) {
+            throw new Error("L'oeuvre n'a pas été trouvée");
+        }
+
+        const artsUpdated = artworks.map((art: Artwork) => {
+            if (art.id === id) {
+                return foundArt;
+            }
+            return art;
+        });
+
+        fs.writeFileSync(this.filePath, JSON.stringify(artsUpdated));
+
+        return foundArt;
+    }
+
     findById(id: number): Artwork | null {
         const artworks = JSON.parse(fs.readFileSync(this.filePath, 'utf8'));
         let foundArt: Artwork | null = null;
