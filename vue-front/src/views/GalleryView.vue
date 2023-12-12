@@ -1,17 +1,24 @@
 <script setup>
 import { artworksService } from '@/_services';
 import { onBeforeMount, ref } from 'vue';
-import ModalComponent from '@/components/PopinComponent.vue';
 import PopinComponent from '@/components/PopinComponent.vue';
 
 let artworks = ref([]);
+let artSelected = ref(null);
+let showPopin = ref(false);
 
 const fetchData = async () => {
 	artworks.value = await artworksService.getArtworks();
-}
+};
 
-const togglePopin = (artwork) => {
-}
+const openPopin = (artwork) => {
+	artSelected.value = artwork;
+	showPopin.value = !showPopin.value;
+};
+
+const closePopin = () => {
+	showPopin.value = false;
+};
 
 onBeforeMount(fetchData);
 </script>
@@ -20,7 +27,9 @@ onBeforeMount(fetchData);
 	<section class='gallery'>
 		<h1>La galerie</h1>
 		<p>
-			La galerie d'art est un lieu d'exposition d'œuvres d'art. Elle peut être publique ou privée, appartenir à un État, à une collectivité locale, à une entreprise ou à un particulier. Elle peut être spécialisée dans un domaine artistique particulier (peinture, sculpture, photographie, etc.) ou présenter des œuvres de tous types.
+			La galerie d'art est un lieu d'exposition d'œuvres d'art. Elle peut être publique ou privée, appartenir à un État,
+			à une collectivité locale, à une entreprise ou à un particulier. Elle peut être spécialisée dans un domaine
+			artistique particulier (peinture, sculpture, photographie, etc.) ou présenter des œuvres de tous types.
 		</p>
 
 		<div class='gallery__content'>
@@ -33,23 +42,24 @@ onBeforeMount(fetchData);
 					<h2 class='name'>
 						{{ artwork.name }}
 					</h2>
-					<button class='btn' @click='togglePopin(artwork)'>
+					<button class='btn' @click='openPopin(artwork)'>
 						En savoir plus
 					</button>
-					<!--<p class='desc'>{{ artwork.description }}</p>-->
-					<!--<p class='price'>{{ artwork.price }} €</p>-->
 				</div>
 			</div>
 		</div>
 
-		<PopinComponent/>
+		<transition>
+			<PopinComponent :art='artSelected' v-if='showPopin' @close='closePopin' />
+		</transition>
 	</section>
 </template>
 
 <style scoped lang='scss'>
-.gallery{
+.gallery {
 	padding: 5rem 0;
-	h1{
+
+	h1 {
 		font-family: $jakarta;
 		font-size: 4rem;
 		text-transform: uppercase;
@@ -59,7 +69,8 @@ onBeforeMount(fetchData);
 		margin-bottom: 3rem;
 		animation: fadeLeft .2s ease-in-out;
 	}
-	& > p{
+
+	& > p {
 		font-family: $opensans;
 		font-size: 2rem;
 		font-weight: 400;
@@ -69,7 +80,7 @@ onBeforeMount(fetchData);
 		animation: fadeRight .2s ease-in-out;
 	}
 
-	&__content{
+	&__content {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		grid-gap: 2rem;
@@ -77,12 +88,12 @@ onBeforeMount(fetchData);
 		animation: fade .2s ease-in-out;
 	}
 
-	&__item{
+	&__item {
 		$and: &;
 		position: relative;
 		overflow: hidden;
-		cursor: pointer;
-		&__text{
+
+		&__text {
 			opacity: 0;
 			position: absolute;
 			top: 0;
@@ -101,7 +112,7 @@ onBeforeMount(fetchData);
 			background-color: $blue;
 			box-sizing: border-box;
 
-			.name{
+			.name {
 				font-size: 2rem;
 				font-weight: 600;
 				color: $white;
@@ -109,33 +120,53 @@ onBeforeMount(fetchData);
 				line-height: 1.5;
 			}
 
-			.desc{
+			.desc {
 				font-size: 1.5rem;
 				font-weight: 400;
 				color: $white;
 				margin-bottom: 1rem;
 			}
 
-			.price{
+			.price {
 				font-size: 1.5rem;
 				font-weight: 600;
 				color: $white;
 
 			}
+
+			p, h2, button{
+				transition: all .2s ease-in-out;
+				transform: translateY(2rem);
+			}
 		}
-		&__img{
+
+		&__img {
 			width: 100%;
 			height: 100%;
 		}
 
-		&:hover{
-			#{$and}__text{
+		&:hover {
+			#{$and}__text {
 				opacity: 1;
 				visibility: visible;
 				color: $white;
+
+				p, h2, button{
+					transform: translateY(0);
+				}
 			}
 		}
 	}
-
 }
+
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.1s ease-in-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
+}
+
 </style>

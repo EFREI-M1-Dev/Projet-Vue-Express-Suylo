@@ -39,6 +39,7 @@ p {
   background-color: $white;
   border: 1px solid $blue;
   color: $blue;
+  cursor: pointer;
   transition: all .2s ease-in-out;
 
   &:hover {
