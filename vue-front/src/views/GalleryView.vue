@@ -1,11 +1,16 @@
 <script setup>
 import { artworksService } from '@/_services';
 import { onBeforeMount, ref } from 'vue';
+import ModalComponent from '@/components/PopinComponent.vue';
+import PopinComponent from '@/components/PopinComponent.vue';
 
 let artworks = ref([]);
 
 const fetchData = async () => {
 	artworks.value = await artworksService.getArtworks();
+}
+
+const togglePopin = (artwork) => {
 }
 
 onBeforeMount(fetchData);
@@ -28,7 +33,7 @@ onBeforeMount(fetchData);
 					<h2 class='name'>
 						{{ artwork.name }}
 					</h2>
-					<button class='btn' @click='toggleModal(artwork.id)'>
+					<button class='btn' @click='togglePopin(artwork)'>
 						En savoir plus
 					</button>
 					<!--<p class='desc'>{{ artwork.description }}</p>-->
@@ -36,6 +41,8 @@ onBeforeMount(fetchData);
 				</div>
 			</div>
 		</div>
+
+		<PopinComponent/>
 	</section>
 </template>
 
@@ -50,6 +57,7 @@ onBeforeMount(fetchData);
 		color: $blue;
 		text-align: center;
 		margin-bottom: 3rem;
+		animation: fadeLeft .2s ease-in-out;
 	}
 	& > p{
 		font-family: $opensans;
@@ -58,7 +66,7 @@ onBeforeMount(fetchData);
 		text-align: center;
 		max-width: 80%;
 		margin: 3rem auto;
-
+		animation: fadeRight .2s ease-in-out;
 	}
 
 	&__content{
@@ -66,6 +74,7 @@ onBeforeMount(fetchData);
 		grid-template-columns: repeat(4, 1fr);
 		grid-gap: 2rem;
 		padding: 2rem;
+		animation: fade .2s ease-in-out;
 	}
 
 	&__item{
