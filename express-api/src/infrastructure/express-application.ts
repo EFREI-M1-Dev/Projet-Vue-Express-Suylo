@@ -2,6 +2,8 @@ import { ExpressRouter } from './express-router';
 import { ExpressServer } from './express-server';
 import { ArtworkJSONService } from '../artwork/artwork.json-service';
 import { ArtworkService } from '../artwork/artwork.service';
+import { ArtistService } from '../artist/artist.service';
+import { ArtistJSONService } from '../artist/artist.json-service';
 import * as dotenv from 'dotenv';
 
 export class ExpressApplication {
@@ -9,6 +11,7 @@ export class ExpressApplication {
     private port!: string;
     private server!: ExpressServer;
     private artworkService!: ArtworkService;
+    private artistService!: ArtistService;
 
     constructor() {
         this.configureApplication();
@@ -38,10 +41,11 @@ export class ExpressApplication {
 
     private configureServices(): void {
         this.artworkService = new ArtworkJSONService();
+        this.artistService = new ArtistJSONService();
     }
 
     private configureExpressRouter(): void {
-        this.expressRouter = new ExpressRouter(this.artworkService);
+        this.expressRouter = new ExpressRouter(this.artworkService, this.artistService);
     }
 
     private configureServer(): void {
