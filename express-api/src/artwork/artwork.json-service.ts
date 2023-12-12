@@ -4,7 +4,14 @@ import fs from 'fs';
 import path from 'path';
 
 export class ArtworkJSONService implements ArtworkService {
-    private filePath = path.join(__dirname, '..', '..', 'storage', 'db', 'artworks.json');
+    private filePath = path.join(
+        __dirname,
+        '..',
+        '..',
+        'storage',
+        'db',
+        'artworks.json',
+    );
 
     create(
         name: string,

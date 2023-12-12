@@ -15,7 +15,10 @@ export class ExpressRouter {
     private artistController!: ArtistController;
     private artistRouter!: ArtistRouter;
 
-    constructor(private artworkService: ArtworkService, private artistService: ArtistService) {
+    constructor(
+        private artworkService: ArtworkService,
+        private artistService: ArtistService,
+    ) {
         this.configureControllers();
         this.configureRouters();
         this.configureRoutes();

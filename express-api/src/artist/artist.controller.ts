@@ -10,7 +10,6 @@ export class ArtistController {
         description: string,
         image: string,
     ): Artist {
-
         return this.artistService.create(
             firstName,
             lastName,
@@ -26,7 +25,6 @@ export class ArtistController {
         description: string,
         image: string,
     ): Artist {
-
         return this.artistService.updateById(
             id,
             firstName,
@@ -37,13 +35,13 @@ export class ArtistController {
     }
 
     findById(id: number): Artist | null {
-        if (id < 0) throw new Error('L\'id ne peut pas être inférieur à 0')
-        return this.artistService.findById(id)
+        if (id < 0) throw new Error("L'id ne peut pas être inférieur à 0");
+        return this.artistService.findById(id);
     }
 
     deleteById(id: number): string {
-        if (id < 0) throw new Error('L\'id ne peut pas être inférieur à 0')
-        return this.artistService.deleteById(id)
+        if (id < 0) throw new Error("L'id ne peut pas être inférieur à 0");
+        return this.artistService.deleteById(id);
     }
 
     findAll(): Artist[] {

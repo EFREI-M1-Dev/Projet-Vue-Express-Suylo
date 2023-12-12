@@ -45,7 +45,10 @@ export class ExpressApplication {
     }
 
     private configureExpressRouter(): void {
-        this.expressRouter = new ExpressRouter(this.artworkService, this.artistService);
+        this.expressRouter = new ExpressRouter(
+            this.artworkService,
+            this.artistService,
+        );
     }
 
     private configureServer(): void {
