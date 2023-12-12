@@ -102,6 +102,7 @@ onBeforeMount(fetchData);
 			display: flex;
 			align-items: center;
 			animation: fadeRight .2s ease-in-out;
+			margin-bottom: 0;
 
 			svg {
 				margin-left: 1rem;

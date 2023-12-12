@@ -107,6 +107,7 @@ onBeforeMount(fetchData);
 			display: flex;
 			align-items: center;
 			animation: fadeRight .2s ease-in-out;
+			margin-bottom: 0;
 
 			svg {
 				margin-left: 1rem;
@@ -141,6 +142,13 @@ onBeforeMount(fetchData);
 		}
 	}
 
+	&__byletter {
+		min-height: 300px;
+		background-color: $white;
+		border: 2px solid $black;
+		padding: 2rem;
+	}
+
 	&__content {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
@@ -158,7 +166,7 @@ onBeforeMount(fetchData);
 
 		&__item {
 			font-family: $opensans;
-			font-size: 2rem;
+			font-size: 1.7rem;
 			font-weight: 500;
 			margin-bottom: 2rem;
 			cursor: pointer;
