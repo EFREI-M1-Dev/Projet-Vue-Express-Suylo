@@ -1,15 +1,24 @@
 <script setup>
+import { onMounted } from 'vue';
+import { artistsService } from '@/_services';
+
 const emit = defineEmits(['close']);
 const closePopin = () => {
 	emit('close');
 };
 
 const props = defineProps({
-	art: {
-		type: Object,
-		required: true,
-	},
+	art: Object,
 });
+
+
+const fetchData = async () => {
+	if (props.art){
+		props.art.artist = await artistsService.getArtistById(props.art.artistId);
+	}
+};
+
+onMounted(fetchData);
 </script>
 
 <template>
@@ -23,6 +32,13 @@ const props = defineProps({
 						<br>
 						{{ art?.name }}
 					</h1>
+					<p v-if='art?.artist' class='artist'>
+						<span class='small'>
+							Artiste :
+						</span>
+						<br>
+						<strong>{{ art?.artist?.firstName }} {{ art?.artist?.lastName }}</strong>
+					</p>
 					<p v-if='art?.description' class='description'>
 						<span class='small'>
 							Description :
@@ -104,7 +120,7 @@ const props = defineProps({
 
 			}
 
-			.description, .price {
+			.description, .price, .artist {
 				font-family: $opensans;
 				font-size: 2rem;
 				font-weight: 400;
@@ -116,9 +132,15 @@ const props = defineProps({
 				font-size: 1.7rem;
 			}
 
-			.price{
+			.price, .artist{
 				font-family: $jakarta;
 				font-weight: 600;
+			}
+
+			.artist{
+				:not(.small){
+					color: $blue;
+				}
 			}
 
 			.small{

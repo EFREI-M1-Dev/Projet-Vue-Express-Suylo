@@ -36,7 +36,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <style scoped lang='scss'>
 .header{
 	background-color: $white;
-	border-bottom: 3px solid $black;
+	border-bottom: 2px solid $black;
 	justify-content: space-between;
 	display: grid;
 	grid-template-areas: "logo nav .";
@@ -64,6 +64,9 @@ import { RouterLink, RouterView } from 'vue-router'
 			display: inline-block;
 			margin: 0 3rem;
 			transition: all .2s ease-in-out;
+			&.router-link-active{
+				color: $blue;
+			}
 		}
 
 		&:hover .nav__link:not(:hover){
