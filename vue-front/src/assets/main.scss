@@ -59,6 +59,47 @@ p {
       border-color: $blue;
     }
   }
+  &:hover {
+    svg path {
+      fill: $blue;
+    }
+  }
+
+  &.btn-red{
+    background-color: $red;
+    color: $white;
+    border-color: transparent;
+
+    &:hover {
+      background-color: $white;
+      color: $red;
+      border-color: $red;
+    }
+
+    &:hover {
+      svg path {
+        fill: $red;
+      }
+    }
+  }
+
+  &.btn-orange{
+    background-color: $orange;
+    color: $white;
+    border-color: transparent;
+
+    &:hover {
+      background-color: $white;
+      color: $orange;
+      border-color: $orange;
+    }
+
+    &:hover {
+      svg path {
+        fill: $orange;
+      }
+    }
+  }
 
   svg {
     margin-left: 1rem;
@@ -69,11 +110,7 @@ p {
     }
   }
 
-  &:hover {
-    svg path {
-      fill: $blue;
-    }
-  }
+
 
   &.--loading {
     position: relative;

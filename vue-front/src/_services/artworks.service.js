@@ -30,8 +30,19 @@ const uploadArtworkImage = async (artwork, artworkName) => {
     }
 }
 
+const updateArtwork = async (id, artwork) => {
+    try {
+        const response = await Axios.put(`/artworks/${id}/edit`, artwork);
+        return response.status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 export const artworksService = {
     getArtworks,
     newArtwork,
-    uploadArtworkImage
+    uploadArtworkImage,
+    updateArtwork
 }

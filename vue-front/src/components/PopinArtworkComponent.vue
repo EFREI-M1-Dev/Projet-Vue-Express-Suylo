@@ -4,6 +4,7 @@ import { artistsService } from '@/_services';
 import PopinContentView from '@/views/artworks/PopinContentView.vue';
 import PopinAddView from '@/views/artworks/PopinAddView.vue';
 import IconCloseSvg from '@/components/icons/IconCloseSvg.vue';
+import PopinEditView from '@/views/artworks/PopinEditView.vue';
 
 const props = defineProps({
 	type: String,
@@ -11,32 +12,38 @@ const props = defineProps({
 });
 
 const fetchData = async () => {
-	switch (props.type) {
-		case 'view':
-			if (props.art){
-				props.art.artist = await artistsService.getArtistById(props.art.artistId);
-			}
-			break;
-		default:
-			break;
+	if (props.type === 'view') {
+		if (props.art){
+			props.art.artist = await artistsService.getArtistById(props.art.artistId);
+		}
 	}
 };
 
 onBeforeMount(fetchData);
 
-const emit = defineEmits(['close', 'refresh', 'add']);
+const emit = defineEmits(['close', 'refresh', 'edit']);
 const closePopin = () => { emit('close'); };
 const refreshArtworksList = () => { emit('refresh'); };
-const showNotification = async () => { 	emit('add'); };
+const showNotification = async () => { 	emit('edit'); };
 </script>
 
 <template>
 	<section class='popin' @click='closePopin'>
 		<div class='popin__content' @click.stop>
 			<div class='popin__content__layout'>
-				<PopinContentView v-if='props.type === "view"' :art='props.art' />
+				<PopinContentView v-if='props.type === "view"'
+													:art='props.art' />
 
-				<PopinAddView v-else-if='props.type === "add"' @refresh='refreshArtworksList' @close='closePopin' @add='showNotification'/>
+				<PopinAddView v-else-if='props.type === "add"'
+											@refresh='refreshArtworksList'
+											@close='closePopin'
+											@add='showNotification'/>
+
+				<PopinEditView v-else-if='props.type === "edit"'
+											 :art='props.art'
+											 @refresh='refreshArtworksList'
+											 @close='closePopin'
+											 @edit='showNotification'/>
 
 				<div class='popin__close' @click='closePopin' title='Fermer la popin'>
 					<IconCloseSvg :color='"black"'/>

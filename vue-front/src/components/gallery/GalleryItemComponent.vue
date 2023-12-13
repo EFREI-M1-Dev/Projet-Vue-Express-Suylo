@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+import IconTrashSvg from '@/components/icons/IconTrashSvg.vue';
+import IconPencilSvg from '@/components/icons/IconPencilSvg.vue';
 
 let imgUrl = ref(import.meta.env.VITE_API_BASE_URL + '/images/');
 
@@ -7,11 +9,11 @@ const props = defineProps({
 	artwork: {},
 });
 
-const emit = defineEmits(['openPopin']);
+const emit = defineEmits(['openPopin', 'openPopinEdit', 'openPopinDelete']);
 
-const openPopinView = (artwork) => {
-	emit('openPopin', artwork);
-};
+const openPopinView = (artwork) => { 	emit('openPopin', artwork); };
+const openPopinEdit = (artwork) => { 	emit('openPopinEdit', artwork); };
+const openPopinDelete = (artwork) => { 	emit('openPopinDelete', artwork); };
 </script>
 
 <template>
@@ -27,6 +29,17 @@ const openPopinView = (artwork) => {
 			<button class='btn' @click='openPopinView(artwork)'>
 				En savoir plus
 			</button>
+			<div class='gallery__item__buttons'>
+				<button class='btn btn-orange' @click='openPopinEdit(artwork)'>
+					<IconPencilSvg />
+					Modifier
+				</button>
+				<button class='btn btn-red' @click='openPopinDelete(artwork)'>
+					<IconTrashSvg />
+					Supprimer
+				</button>
+			</div>
+
 		</div>
 	</div>
 
@@ -83,12 +96,27 @@ const openPopinView = (artwork) => {
 			transition: all .2s ease-in-out;
 			transform: translateY(2rem);
 		}
+
+		.btn{
+			display: flex;
+			align-items: center;
+			gap: 2rem;
+
+			svg{
+				margin-left: -.5rem;
+			}
+		}
 	}
 
 	&__img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+
+	&__buttons{
+		display: flex;
+		gap: 2rem;
 	}
 
 	&:hover {

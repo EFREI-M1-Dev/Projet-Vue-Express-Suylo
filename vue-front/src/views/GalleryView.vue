@@ -9,9 +9,16 @@ import IconSuccessSvg from '@/components/icons/IconSuccessSvg.vue';
 
 let artworks = ref([]);
 let artSelected = ref(null);
+
+// Popins states
 let showArtworkPopin = ref(false);
 let showArtworkAddPopin = ref(false);
+let showArtworkEditPopin = ref(false);
+let showArtworkDeletePopin = ref(false);
+
+// Notification states
 let success = ref(false);
+let msgSuccess = ref('');
 
 const fetchData = async () => {
 	artworks.value = await artworksService.getArtworks();
@@ -21,21 +28,35 @@ const refreshArtworks = () => {
 	fetchData();
 };
 
+const openPopinAdd = () => {
+	showArtworkAddPopin.value = !showArtworkAddPopin.value;
+};
 const openPopinView = (artwork) => {
 	artSelected.value = artwork;
 	showArtworkPopin.value = !showArtworkPopin.value;
 };
-
-const openPopinAdd = () => {
-	showArtworkAddPopin.value = !showArtworkAddPopin.value;
+const openPopinEdit = (artwork) => {
+	artSelected.value = artwork;
+	showArtworkEditPopin.value = !showArtworkEditPopin.value;
+};
+const openPopinDelete = (artwork) => {
+	artSelected.value = artwork;
+	showArtworkDeletePopin.value = !showArtworkDeletePopin.value;
 };
 
 const closePopin = () => {
 	showArtworkPopin.value = false;
 	showArtworkAddPopin.value = false;
+	showArtworkEditPopin.value = false;
+	showArtworkDeletePopin.value = false;
 };
 
-const showNotification = async () => {
+const showNotification = async (type) => {
+	if (type === 'add') {
+		msgSuccess.value = 'L\'œuvre a bien été ajoutée.';
+	} else if (type === 'edit') {
+		msgSuccess.value = 'L\'œuvre a bien été modifiée.';
+	}
 	success.value = true;
 	await timeout(4000);
 	success.value = false;
@@ -65,14 +86,36 @@ onBeforeMount(fetchData);
 		</div>
 
 		<div class='gallery__content'>
-			<GalleryItemComponent v-for='artwork in artworks' :artwork='artwork' @openPopin='openPopinView(artwork)'/>
+			<GalleryItemComponent v-for='artwork in artworks'
+														:artwork='artwork'
+														@openPopin='openPopinView(artwork)'
+														@openPopinEdit='openPopinEdit(artwork)'
+														@openPopinDelete='openPopinDelete(artwork)'
+			/>
 		</div>
 
 		<transition>
-			<PopinArtworkComponent :type='"view"' :art='artSelected' v-if='showArtworkPopin' @close='closePopin' />
+			<PopinArtworkComponent :type='"view"'
+														 v-if='showArtworkPopin'
+														 :art='artSelected'
+														 @close='closePopin'
+			/>
 		</transition>
 		<transition>
-			<PopinArtworkComponent :type='"add"' v-if='showArtworkAddPopin' @close='closePopin' @refresh='refreshArtworks' @add='showNotification' />
+			<PopinArtworkComponent :type='"add"'
+														 v-if='showArtworkAddPopin'
+														 @close='closePopin'
+														 @refresh='refreshArtworks'
+														 @add='showNotification("add")'
+			/>
+		</transition>
+		<transition>
+			<PopinArtworkComponent :type='"edit"'
+														 v-if='showArtworkEditPopin'
+														 :art='artSelected'
+														 @close='closePopin'
+														 @refresh='refreshArtworks'
+														 @edit='showNotification("edit")'	/>
 		</transition>
 
 		<transition name='slide-from-right'>
@@ -80,7 +123,7 @@ onBeforeMount(fetchData);
 				<template v-slot:icon>
 					<IconSuccessSvg :color='"white"'/>
 				</template>
-				La nouvelle œuvre a bien été ajoutée !
+				{{ msgSuccess }}
 			</NotificationComponent>
 		</transition>
 	</section>

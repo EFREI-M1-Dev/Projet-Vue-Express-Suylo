@@ -109,7 +109,8 @@ export class ArtworkJSONService implements ArtworkService {
         const artsUpdated = artworks.filter((art: Artwork) => {
             return art.id !== id;
         });
-
+        const imagePath = artsUpdated[0].image;
+        fs.unlinkSync(imagePath);
         fs.writeFileSync(this.filePath, JSON.stringify(artsUpdated));
 
         return "L'oeuvre a bien été supprimée";
