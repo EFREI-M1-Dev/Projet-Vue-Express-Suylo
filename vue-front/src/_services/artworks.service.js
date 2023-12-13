@@ -9,6 +9,16 @@ const getArtworks = async () => {
     }
 }
 
+const newArtwork = async (artwork) => {
+    try {
+        const response = await Axios.post('/artworks/add', artwork);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const artworksService = {
-    getArtworks
+    getArtworks,
+    newArtwork
 }

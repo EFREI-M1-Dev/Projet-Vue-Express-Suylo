@@ -113,20 +113,7 @@ onBeforeMount(fetchData);
 			animation: fadeRight .2s ease-in-out;
 			margin-bottom: 0;
 
-			svg {
-				margin-left: 1rem;
-				margin-right: -1rem;
 
-				path {
-					transition: all .2s ease-in-out;
-				}
-			}
-
-			&:hover {
-				svg path {
-					fill: $blue;
-				}
-			}
 		}
 	}
 

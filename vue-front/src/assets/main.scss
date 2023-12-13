@@ -51,12 +51,27 @@ p {
   &.btn-reverse {
     background-color: $blue;
     color: $white;
-    border-color: $white;
+    border-color: transparent;
 
     &:hover {
       background-color: $white;
       color: $blue;
       border-color: $blue;
+    }
+  }
+
+  svg {
+    margin-left: 1rem;
+    margin-right: -1rem;
+
+    path {
+      transition: all .2s ease-in-out;
+    }
+  }
+
+  &:hover {
+    svg path {
+      fill: $blue;
     }
   }
 }
@@ -69,12 +84,27 @@ p {
   width: 100%;
   margin-top: 1rem;
   font-size: 1.6rem;
+  background-color: $white;
   display: flex;
   font-family: $jakarta;
   font-weight: 500;
   &:focus{
     outline: none;
     border-color: $blue;
+  }
+}
+
+select.input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z' fill='black'/%3E%3C/svg%3E");  background-repeat: no-repeat;
+  background-position-x: 97.5%;
+  background-position-y: 50%;
+  border-radius: 2px;
+  color: $black !important;
+
+  option{
+    color: $black;
   }
 }
 

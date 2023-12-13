@@ -3,6 +3,7 @@ import { onBeforeMount, onMounted } from 'vue';
 import { artistsService } from '@/_services';
 import PopinContentView from '@/views/artworks/PopinContentView.vue';
 import PopinAddView from '@/views/artworks/PopinAddView.vue';
+import IconCloseSvg from '@/components/icons/IconCloseSvg.vue';
 
 const props = defineProps({
 	type: String,
@@ -41,11 +42,7 @@ onBeforeMount(fetchData);
 				<PopinAddView v-else-if='props.type === "add"' />
 
 				<div class='popin__close' @click='closePopin' title='Fermer la popin'>
-					<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-						<path
-								d='M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z'
-								fill='black' />
-					</svg>
+					<IconCloseSvg :color='"black"'/>
 				</div>
 			</div>
 		</div>
