@@ -12,8 +12,9 @@ const props = defineProps({
 </script>
 
 <template>
-	<img class='popin__content__img' :src=' imgUrl + art?.image' :alt='art?.title' />
-	<div class='popin__content__text'>
+	<div class='popin__content__layout'>
+		<img class='popin__content__img' :src=' imgUrl + art?.image' :alt='art?.title' />
+		<div class='popin__content__text'>
 		<h1 class='title'>
 			<span class='small'>Nom de l'œuvre :</span>
 			<br>
@@ -46,6 +47,7 @@ const props = defineProps({
 			<br>
 			{{ art?.price }}&nbsp;€
 		</p>
+	</div>
 	</div>
 </template>
 

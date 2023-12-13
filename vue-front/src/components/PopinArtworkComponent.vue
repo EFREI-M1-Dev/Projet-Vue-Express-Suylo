@@ -22,8 +22,6 @@ const fetchData = async () => {
 				props.art.artist = await artistsService.getArtistById(props.art.artistId);
 			}
 			break;
-		case 'add':
-			break;
 		default:
 			break;
 	}

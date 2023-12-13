@@ -74,9 +74,43 @@ p {
       fill: $blue;
     }
   }
+
+  &.--loading {
+    position: relative;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 40px;
+      background-color: $blue;
+      z-index: 2;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: 3px solid transparent;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-left: 3px solid $white;
+      width: 2rem;
+      height: 2rem;
+      z-index: 3;
+      border-radius: 50%;
+      animation: spin .75s linear infinite;
+    }
+  }
 }
 
-.input{
+.input {
   border: 1px solid $black;
   padding: 1rem 2rem;
   height: 50px;
@@ -88,7 +122,8 @@ p {
   display: flex;
   font-family: $jakarta;
   font-weight: 500;
-  &:focus{
+
+  &:focus {
     outline: none;
     border-color: $blue;
   }
@@ -97,13 +132,14 @@ p {
 select.input {
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z' fill='black'/%3E%3C/svg%3E");  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z' fill='black'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
   background-position-x: 97.5%;
   background-position-y: 50%;
   border-radius: 2px;
   color: $black !important;
 
-  option{
+  option {
     color: $black;
   }
 }
@@ -131,11 +167,20 @@ select.input {
   }
 }
 
-@keyframes fade{
-    from {
-        opacity: 0.5;
-    }
-    to {
-        opacity: 1;
-    }
+@keyframes fade {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
