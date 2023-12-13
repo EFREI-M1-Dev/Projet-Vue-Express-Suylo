@@ -6,7 +6,6 @@ import IconCloseSvg from '@/components/icons/IconCloseSvg.vue';
 import IconSaveSvg from '@/components/icons/IconSaveSvg.vue';
 import IconWarningSvg from '@/components/icons/IconWarningSvg.vue';
 
-const emit = defineEmits(['close']);
 
 let artists = ref([]);
 
@@ -17,6 +16,7 @@ let description = ref('');
 let price = ref('');
 let image = ref('');
 
+// Ref submit
 let errors = ref();
 
 const fetchArtistsData = async () => {
@@ -39,9 +39,11 @@ const removePictureView = () => {
 	image.value = '';
 };
 
-const closePopin = () => {
-	emit('close');
-};
+// emits
+const emit = defineEmits(['close', 'refresh', 'add']);
+const closePopin = () => { emit('close'); };
+const refreshArtworksList = () => { emit('refresh'); };
+const showNotification = async () => { 	emit('add'); };
 
 
 const submitNewArtwork = async () => {
@@ -89,10 +91,13 @@ const submitNewArtwork = async () => {
 			const sndCall = await artworksService.uploadArtworkImage(image.value, imgName);
 
 			if (sndCall === 200){
+				// Petit timeout pour afficher le loading, sinon c'est instantané et on voit rien :(
 				setTimeout(() => {
 					btnSubmit.classList.remove('--loading');
 					closePopin();
+					refreshArtworksList();
 				}, 1000);
+				await showNotification();
 			} else {
 				errors.value = 'Une erreur est survenue lors de l\'upload de l\'image.';
 			}
@@ -157,6 +162,7 @@ const submitNewArtwork = async () => {
 			</button>
 		</div>
 	</form>
+
 </template>
 
 <style scoped lang='scss'>

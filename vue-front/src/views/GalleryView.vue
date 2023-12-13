@@ -4,14 +4,21 @@ import { onBeforeMount, ref } from 'vue';
 import PopinArtworkComponent from '@/components/PopinArtworkComponent.vue';
 import IconPlusSvg from '@/components/icons/IconPlusSvg.vue';
 import GalleryItemComponent from '@/components/gallery/GalleryItemComponent.vue';
+import NotificationComponent from '@/components/NotificationComponent.vue';
+import IconSuccessSvg from '@/components/icons/IconSuccessSvg.vue';
 
 let artworks = ref([]);
 let artSelected = ref(null);
 let showArtworkPopin = ref(false);
 let showArtworkAddPopin = ref(false);
+let success = ref(false);
 
 const fetchData = async () => {
 	artworks.value = await artworksService.getArtworks();
+};
+
+const refreshArtworks = () => {
+	fetchData();
 };
 
 const openPopinView = (artwork) => {
@@ -26,6 +33,16 @@ const openPopinAdd = () => {
 const closePopin = () => {
 	showArtworkPopin.value = false;
 	showArtworkAddPopin.value = false;
+};
+
+const showNotification = async () => {
+	success.value = true;
+	await timeout(4000);
+	success.value = false;
+};
+
+const timeout = (ms) => {
+	return new Promise(resolve => setTimeout(resolve, ms));
 };
 
 onBeforeMount(fetchData);
@@ -55,7 +72,16 @@ onBeforeMount(fetchData);
 			<PopinArtworkComponent :type='"view"' :art='artSelected' v-if='showArtworkPopin' @close='closePopin' />
 		</transition>
 		<transition>
-			<PopinArtworkComponent :type='"add"' v-if='showArtworkAddPopin' @close='closePopin' />
+			<PopinArtworkComponent :type='"add"' v-if='showArtworkAddPopin' @close='closePopin' @refresh='refreshArtworks' @add='showNotification' />
+		</transition>
+
+		<transition name='slide-from-right'>
+			<NotificationComponent :type='"success"' v-if='success'>
+				<template v-slot:icon>
+					<IconSuccessSvg :color='"white"'/>
+				</template>
+				La nouvelle œuvre a bien été ajoutée !
+			</NotificationComponent>
 		</transition>
 	</section>
 </template>
@@ -124,5 +150,22 @@ onBeforeMount(fetchData);
 .v-leave-to {
 	opacity: 0;
 }
+
+.slide-from-right-enter-active,
+.slide-from-right-leave-active {
+	transition: all .1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-from-right-enter-from,
+.slide-from-right-leave-to {
+	transform: translateX(100%);
+}
+
+.slide-from-right-enter-to,
+.slide-from-right-leave-from {
+	transform: translateX(0);
+}
+
+
 
 </style>

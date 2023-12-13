@@ -1,5 +1,5 @@
 <script setup>
-import { onBeforeMount, onMounted } from 'vue';
+import { onBeforeMount } from 'vue';
 import { artistsService } from '@/_services';
 import PopinContentView from '@/views/artworks/PopinContentView.vue';
 import PopinAddView from '@/views/artworks/PopinAddView.vue';
@@ -9,11 +9,6 @@ const props = defineProps({
 	type: String,
 	art: Object,
 });
-
-const emit = defineEmits(['close']);
-const closePopin = () => {
-	emit('close');
-};
 
 const fetchData = async () => {
 	switch (props.type) {
@@ -25,10 +20,14 @@ const fetchData = async () => {
 		default:
 			break;
 	}
-
 };
 
 onBeforeMount(fetchData);
+
+const emit = defineEmits(['close', 'refresh', 'add']);
+const closePopin = () => { emit('close'); };
+const refreshArtworksList = () => { emit('refresh'); };
+const showNotification = async () => { 	emit('add'); };
 </script>
 
 <template>
@@ -37,7 +36,7 @@ onBeforeMount(fetchData);
 			<div class='popin__content__layout'>
 				<PopinContentView v-if='props.type === "view"' :art='props.art' />
 
-				<PopinAddView v-else-if='props.type === "add"' />
+				<PopinAddView v-else-if='props.type === "add"' @refresh='refreshArtworksList' @close='closePopin' @add='showNotification'/>
 
 				<div class='popin__close' @click='closePopin' title='Fermer la popin'>
 					<IconCloseSvg :color='"black"'/>
