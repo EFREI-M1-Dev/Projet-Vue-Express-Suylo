@@ -1,23 +1,29 @@
 <script setup>
-import { artworksService } from '@/_services';
+import { artistsService, artworksService } from '@/_services';
 import { onBeforeMount, ref } from 'vue';
-import PopinComponent from '@/components/PopinComponent.vue';
+import PopinArtworkComponent from '@/components/PopinArtworkComponent.vue';
 
 let artworks = ref([]);
 let artSelected = ref(null);
-let showPopin = ref(false);
+let showArtworkPopin = ref(false);
+let showArtworkAddPopin = ref(false);
 
 const fetchData = async () => {
 	artworks.value = await artworksService.getArtworks();
 };
 
-const openPopin = (artwork) => {
+const openPopinView = (artwork) => {
 	artSelected.value = artwork;
-	showPopin.value = !showPopin.value;
+	showArtworkPopin.value = !showArtworkPopin.value;
+};
+
+const openPopinAdd = () => {
+	showArtworkAddPopin.value = !showArtworkAddPopin.value;
 };
 
 const closePopin = () => {
-	showPopin.value = false;
+	showArtworkPopin.value = false;
+	showArtworkAddPopin.value = false;
 };
 
 onBeforeMount(fetchData);
@@ -33,7 +39,7 @@ onBeforeMount(fetchData);
 				à une collectivité locale, à une entreprise ou à un particulier. Elle peut être spécialisée dans un domaine
 				artistique particulier (peinture, sculpture, photographie, etc.) ou présenter des œuvres de tous types.
 			</p>
-			<button class='btn btn-reverse'>
+			<button class='btn btn-reverse' @click='openPopinAdd'>
 				Ajouter une œuvre
 				<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
 					<path
@@ -53,7 +59,7 @@ onBeforeMount(fetchData);
 					<h2 class='name'>
 						{{ artwork.name }}
 					</h2>
-					<button class='btn' @click='openPopin(artwork)'>
+					<button class='btn' @click='openPopinView(artwork)'>
 						En savoir plus
 					</button>
 				</div>
@@ -61,7 +67,10 @@ onBeforeMount(fetchData);
 		</div>
 
 		<transition>
-			<PopinComponent :art='artSelected' v-if='showPopin' @close='closePopin' />
+			<PopinArtworkComponent :type='"view"' :art='artSelected' v-if='showArtworkPopin' @close='closePopin' />
+		</transition>
+		<transition>
+			<PopinArtworkComponent :type='"add"' v-if='showArtworkAddPopin' @close='closePopin' />
 		</transition>
 	</section>
 </template>

@@ -61,6 +61,23 @@ p {
   }
 }
 
+.input{
+  border: 1px solid $black;
+  padding: 1rem 2rem;
+  height: 50px;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  display: flex;
+  font-family: $jakarta;
+  font-weight: 500;
+  &:focus{
+    outline: none;
+    border-color: $blue;
+  }
+}
+
 @keyframes fadeLeft {
   from {
     opacity: 0;
