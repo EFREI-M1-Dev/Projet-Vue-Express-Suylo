@@ -3,14 +3,6 @@
 - ⚠️ **En cours de réalisation** ⚠️
 - Projet de création d'un site web en Vue.js et Express.js, création d'une galerie d'art répertoriant différents types œuvres ainsi que différents artistes. (fictif)
 
-## Aperçu
-
-![img.png](utils/img.png)
-
-![galerie.png](utils/galerie.png)
-
-![artistes.png](utils/artistes.png)
-
 ## Installation
 Le projet est en deux segments, une partie front réalisé en VueJS et une partie back (API) réalisé en ExpressJS.
 
@@ -38,3 +30,11 @@ npm install
 ```bash
 npm run preview
 ```
+
+## Aperçu
+
+![img.png](utils/img.png)
+
+![galerie.png](utils/galerie.png)
+
+![artistes.png](utils/artistes.png)
