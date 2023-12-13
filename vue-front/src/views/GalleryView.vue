@@ -118,7 +118,8 @@ onBeforeMount(fetchData);
 
 	&__content {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+		grid-template-rows: repeat(auto-fit, minmax(400px, 1fr));
 		grid-gap: 2rem;
 		padding: 2rem;
 		animation: fade .2s ease-in-out;
@@ -181,6 +182,7 @@ onBeforeMount(fetchData);
 		&__img {
 			width: 100%;
 			height: 100%;
+			object-fit: cover;
 		}
 
 		&:hover {
