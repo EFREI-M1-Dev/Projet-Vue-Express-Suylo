@@ -128,6 +128,12 @@ p {
       z-index: 2;
     }
 
+    &.--red{
+        &::before {
+            background-color: $red;
+        }
+    }
+
     &::after {
       content: "";
       position: absolute;
@@ -220,4 +226,30 @@ select.input {
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.1s ease-in-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.slide-from-right-enter-active,
+.slide-from-right-leave-active {
+  transition: all .1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-from-right-enter-from,
+.slide-from-right-leave-to {
+  transform: translateX(100%);
+}
+
+.slide-from-right-enter-to,
+.slide-from-right-leave-from {
+  transform: translateX(0);
 }

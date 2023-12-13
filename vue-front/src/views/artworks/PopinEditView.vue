@@ -29,10 +29,10 @@ const fetchArtistsData = async () => {
 onBeforeMount(fetchArtistsData);
 
 // emits
-const emit = defineEmits(['close', 'refresh', 'edit']);
+const emit = defineEmits(['close', 'refresh', 'notif']);
 const closePopin = () => { emit('close'); };
 const refreshArtworksList = () => { emit('refresh'); };
-const showNotification = async () => { 	emit('edit') };
+const showNotification = async () => { 	emit('notif') };
 
 
 const submitUpdateArtwork = async () => {

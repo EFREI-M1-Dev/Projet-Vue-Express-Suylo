@@ -5,6 +5,7 @@ import PopinContentView from '@/views/artworks/PopinContentView.vue';
 import PopinAddView from '@/views/artworks/PopinAddView.vue';
 import IconCloseSvg from '@/components/icons/IconCloseSvg.vue';
 import PopinEditView from '@/views/artworks/PopinEditView.vue';
+import PopinDeleteView from '@/views/artworks/PopinDeleteView.vue';
 
 const props = defineProps({
 	type: String,
@@ -21,10 +22,10 @@ const fetchData = async () => {
 
 onBeforeMount(fetchData);
 
-const emit = defineEmits(['close', 'refresh', 'edit']);
+const emit = defineEmits(['close', 'refresh', 'notif']);
 const closePopin = () => { emit('close'); };
 const refreshArtworksList = () => { emit('refresh'); };
-const showNotification = async () => { 	emit('edit'); };
+const showNotification = async () => { 	emit('notif'); };
 </script>
 
 <template>
@@ -37,13 +38,19 @@ const showNotification = async () => { 	emit('edit'); };
 				<PopinAddView v-else-if='props.type === "add"'
 											@refresh='refreshArtworksList'
 											@close='closePopin'
-											@add='showNotification'/>
+											@notif='showNotification'/>
 
 				<PopinEditView v-else-if='props.type === "edit"'
 											 :art='props.art'
 											 @refresh='refreshArtworksList'
 											 @close='closePopin'
-											 @edit='showNotification'/>
+											 @notif='showNotification'/>
+
+				<PopinDeleteView v-else-if='props.type === "delete"'
+											 :art='props.art'
+											 @refresh='refreshArtworksList'
+											 @close='closePopin'
+											 @notif='showNotification'/>
 
 				<div class='popin__close' @click='closePopin' title='Fermer la popin'>
 					<IconCloseSvg :color='"black"'/>

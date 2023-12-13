@@ -56,6 +56,8 @@ const showNotification = async (type) => {
 		msgSuccess.value = 'L\'œuvre a bien été ajoutée.';
 	} else if (type === 'edit') {
 		msgSuccess.value = 'L\'œuvre a bien été modifiée.';
+	} else if (type === 'delete') {
+		msgSuccess.value = 'L\'œuvre a bien été supprimée.';
 	}
 	success.value = true;
 	await timeout(4000);
@@ -88,40 +90,29 @@ onBeforeMount(fetchData);
 		<div class='gallery__content'>
 			<GalleryItemComponent v-for='artwork in artworks'
 														:artwork='artwork'
-														@openPopin='openPopinView(artwork)'
-														@openPopinEdit='openPopinEdit(artwork)'
-														@openPopinDelete='openPopinDelete(artwork)'
+														@openPopin='openPopinView(artwork)' @openPopinEdit='openPopinEdit(artwork)' @openPopinDelete='openPopinDelete(artwork)'
 			/>
 		</div>
 
-		<transition>
-			<PopinArtworkComponent :type='"view"'
-														 v-if='showArtworkPopin'
-														 :art='artSelected'
+		<transition-group>
+			<PopinArtworkComponent :type='"add"' v-if='showArtworkAddPopin'
+														 @close='closePopin' @refresh='refreshArtworks' @notif='showNotification("add")'
+			/>
+			<PopinArtworkComponent :type='"view"' v-if='showArtworkPopin' :art='artSelected'
 														 @close='closePopin'
 			/>
-		</transition>
-		<transition>
-			<PopinArtworkComponent :type='"add"'
-														 v-if='showArtworkAddPopin'
-														 @close='closePopin'
-														 @refresh='refreshArtworks'
-														 @add='showNotification("add")'
+			<PopinArtworkComponent :type='"edit"' v-if='showArtworkEditPopin' :art='artSelected'
+														 @close='closePopin' @refresh='refreshArtworks' @notif='showNotification("edit")'
 			/>
-		</transition>
-		<transition>
-			<PopinArtworkComponent :type='"edit"'
-														 v-if='showArtworkEditPopin'
-														 :art='artSelected'
-														 @close='closePopin'
-														 @refresh='refreshArtworks'
-														 @edit='showNotification("edit")'	/>
-		</transition>
+			<PopinArtworkComponent :type='"delete"' v-if='showArtworkDeletePopin' :art='artSelected'
+														 @close='closePopin' @refresh='refreshArtworks' @notif='showNotification("delete")'
+			/>
+		</transition-group>
 
 		<transition name='slide-from-right'>
 			<NotificationComponent :type='"success"' v-if='success'>
 				<template v-slot:icon>
-					<IconSuccessSvg :color='"white"'/>
+					<IconSuccessSvg :color='"white"' />
 				</template>
 				{{ msgSuccess }}
 			</NotificationComponent>
@@ -183,32 +174,5 @@ onBeforeMount(fetchData);
 	}
 
 }
-
-.v-enter-active,
-.v-leave-active {
-	transition: opacity 0.1s ease-in-out;
-}
-
-.v-enter-from,
-.v-leave-to {
-	opacity: 0;
-}
-
-.slide-from-right-enter-active,
-.slide-from-right-leave-active {
-	transition: all .1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slide-from-right-enter-from,
-.slide-from-right-leave-to {
-	transform: translateX(100%);
-}
-
-.slide-from-right-enter-to,
-.slide-from-right-leave-from {
-	transform: translateX(0);
-}
-
-
 
 </style>

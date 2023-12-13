@@ -39,10 +39,20 @@ const updateArtwork = async (id, artwork) => {
     }
 }
 
+const deleteArtwork = async (id) => {
+    try {
+        const response = await Axios.delete(`/artworks/${id}`);
+        return response.status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 export const artworksService = {
     getArtworks,
     newArtwork,
     uploadArtworkImage,
-    updateArtwork
+    updateArtwork,
+    deleteArtwork
 }

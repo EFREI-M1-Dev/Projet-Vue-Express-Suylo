@@ -40,10 +40,10 @@ const removePictureView = () => {
 };
 
 // emits
-const emit = defineEmits(['close', 'refresh', 'add']);
+const emit = defineEmits(['close', 'refresh', 'notif']);
 const closePopin = () => { emit('close'); };
 const refreshArtworksList = () => { emit('refresh'); };
-const showNotification = async () => { 	emit('add'); };
+const showNotification = async () => { 	emit('notif'); };
 
 
 const submitNewArtwork = async () => {
