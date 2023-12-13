@@ -4,6 +4,8 @@ import { onBeforeMount, ref } from 'vue';
 import PopinArtworkComponent from '@/components/PopinArtworkComponent.vue';
 import IconPlusSvg from '@/components/icons/IconPlusSvg.vue';
 
+let imgUrl = ref(import.meta.env.VITE_API_BASE_URL + '/images/');
+
 let artworks = ref([]);
 let artSelected = ref(null);
 let showArtworkPopin = ref(false);
@@ -48,7 +50,7 @@ onBeforeMount(fetchData);
 
 		<div class='gallery__content'>
 			<div class='gallery__item' v-for='artwork in artworks' :key='artwork.id'>
-				<img class='gallery__item__img' :src='"/arts/img/"+ artwork.image' :alt='artwork.title' />
+				<img class='gallery__item__img' :src='imgUrl + artwork.image' :alt='artwork.title' />
 				<div class='gallery__item__text'>
 					<p class='desc'>
 						Titre de l'œuvre :

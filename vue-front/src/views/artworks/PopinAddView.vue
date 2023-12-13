@@ -15,14 +15,22 @@ let price = ref('');
 let image = ref('');
 
 const submitNewArtwork = async () => {
+	let imgName = 'img-' + title.value.replace(/\s/g, '-').toLowerCase() + '-' + Date.now() + '.png';
+
 	const newArtwork = {
 		name: title.value,
 		description: description.value,
-		price: price.value,
+		price: parseInt(price.value),
+		image: imgName,
 		artistId: artist.value,
 	};
 
-	await artworksService.newArtwork(newArtwork);
+	try{
+		await artworksService.uploadArtworkImage(image.value, imgName);
+		await artworksService.newArtwork(newArtwork);
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 const onPictureChange = (event) => {
@@ -79,13 +87,13 @@ onBeforeMount(fetchArtistsData);
 		</p>
 		<p class='price small'>
 			Prix estimé :
-			<input type='text' v-model='price' placeholder='Son prix en €' class='input' name='price'>
+			<input type='number' v-model='price' placeholder='Son prix en €' class='input' name='price'>
 		</p>
 		<div class='required'>
 			* Champs obligatoires
 		</div>
 
-		<button class='popin__content__btn btn btn-reverse' @click=''>
+		<button class='popin__content__btn btn btn-reverse' @click='submitNewArtwork'>
 			Sauvegarder
 			<IconSaveSvg />
 		</button>

@@ -18,7 +18,20 @@ const newArtwork = async (artwork) => {
     }
 }
 
+const uploadArtworkImage = async (artwork, artworkName) => {
+    try {
+        const response = await Axios.post(`/artworks/upload`, {
+            image: artwork,
+            imageName: artworkName
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const artworksService = {
     getArtworks,
-    newArtwork
+    newArtwork,
+    uploadArtworkImage
 }

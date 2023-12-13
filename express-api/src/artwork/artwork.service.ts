@@ -18,4 +18,5 @@ export interface ArtworkService {
     findAll(): Artwork[];
     findById(id: number): Artwork | null;
     deleteById(id: number): string;
+    uploadImage(image: string, imageName: string): string;
 }

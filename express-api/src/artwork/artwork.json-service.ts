@@ -133,4 +133,28 @@ export class ArtworkJSONService implements ArtworkService {
         });
         return artworks;
     }
+
+    uploadImage(image: string, imageName: string): string {
+        try {
+            const base64Data = image.replace(/^data:image\/\w+;base64,/, '');
+
+            const buffer = Buffer.from(base64Data, 'base64');
+
+            const folderPath = 'public/images/';
+
+            if (!fs.existsSync(folderPath)) {
+                fs.mkdirSync(folderPath, { recursive: true });
+            }
+
+            const filePath = path.join(folderPath, imageName);
+
+            fs.writeFileSync(filePath, buffer);
+
+            return filePath;
+        } catch (error) {
+            console.error('Erreur lors de l\'upload de l\'image:', error);
+            throw new Error('Erreur lors de l\'upload de l\'image');
+        }
+    }
+
 }

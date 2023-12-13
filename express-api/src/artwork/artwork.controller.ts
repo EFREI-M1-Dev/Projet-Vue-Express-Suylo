@@ -4,12 +4,6 @@ import { ArtworkService } from './artwork.service';
 export class ArtworkController {
     constructor(private artworkService: ArtworkService) {}
 
-    /*
-        if (username !== username.trim()) throw new Error('Le nom d\'utilisateur ne peut pas être vide')
-        if (username.length > 20) throw new Error('Le nom d\'utilisateur ne peut pas dépasser 20 caractères')
-        if (username.length < 3) throw new Error('Le nom d\'utilisateur ne peut pas être inférieur à 3 caractères')
-        */
-
     create(
         name: string,
         description: string,
@@ -100,5 +94,12 @@ export class ArtworkController {
 
     findAll(): Artwork[] {
         return this.artworkService.findAll();
+    }
+
+    uploadImage(image: string, imageName: string): string {
+        if (image !== image.trim()) throw new Error("L'image ne peut pas être vide");
+        if (imageName !== imageName.trim()) throw new Error("Le nom de l'image ne peut pas être vide");
+        if (imageName.length > 255) throw new Error("Le nom de l'image ne peut pas dépasser 255 caractères");
+        return this.artworkService.uploadImage(image, imageName);
     }
 }

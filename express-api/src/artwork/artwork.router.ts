@@ -70,5 +70,17 @@ export class ArtworkRouter {
                 next(error);
             }
         });
+
+        this.router.post('/upload', (req, res, next) => {
+            try {
+                const result = this.artworkController.uploadImage(
+                    req.body.image,
+                    req.body.imageName,
+                );
+                res.status(200).json(result);
+            } catch (error: unknown) {
+                next(error);
+            }
+        });
     }
 }

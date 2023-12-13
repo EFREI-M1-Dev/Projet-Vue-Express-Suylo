@@ -1,6 +1,9 @@
 <script setup>
 import IconQuoteLeftSvg from '@/components/icons/IconQuoteLeftSvg.vue';
 import IconQuoteRightSvg from '@/components/icons/IconQuoteRightSvg.vue';
+import { ref } from 'vue';
+
+let imgUrl = ref(import.meta.env.VITE_API_BASE_URL + '/images/');
 
 const props = defineProps({
 	art: {},
@@ -9,7 +12,7 @@ const props = defineProps({
 </script>
 
 <template>
-	<img class='popin__content__img' :src='"/arts/img/"+ art?.image' :alt='art?.title' />
+	<img class='popin__content__img' :src=' imgUrl + art?.image' :alt='art?.title' />
 	<div class='popin__content__text'>
 		<h1 class='title'>
 			<span class='small'>Nom de l'œuvre :</span>
