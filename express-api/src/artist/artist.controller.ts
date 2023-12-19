@@ -8,13 +8,13 @@ export class ArtistController {
         firstName: string,
         lastName: string,
         description: string,
-        image: string,
+        link: string,
     ): Artist {
         return this.artistService.create(
             firstName,
             lastName,
             description,
-            image,
+            link,
         );
     }
 
@@ -23,14 +23,14 @@ export class ArtistController {
         firstName: string,
         lastName: string,
         description: string,
-        image: string,
+        link: string,
     ): Artist {
         return this.artistService.updateById(
             id,
             firstName,
             lastName,
             description,
-            image,
+            link,
         );
     }
 

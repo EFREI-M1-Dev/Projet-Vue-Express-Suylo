@@ -17,7 +17,7 @@ export class ArtistJSONService implements ArtistService {
         firstName: string,
         lastName: string,
         description: string,
-        image: string,
+        link: string,
     ): Artist {
         if (!fs.existsSync(this.filePath)) {
             fs.writeFileSync(this.filePath, '[]');
@@ -35,7 +35,7 @@ export class ArtistJSONService implements ArtistService {
             firstName,
             lastName,
             description,
-            image,
+            link,
         );
         artistsJson.push(art);
         fs.writeFileSync(this.filePath, JSON.stringify(artistsJson));
@@ -47,7 +47,7 @@ export class ArtistJSONService implements ArtistService {
         firstName: string,
         lastName: string,
         description: string,
-        image: string,
+        link: string,
     ): Artist {
         const artists = JSON.parse(fs.readFileSync(this.filePath, 'utf8'));
         let foundArtist: Artist | null = null;
@@ -59,7 +59,7 @@ export class ArtistJSONService implements ArtistService {
                     firstName,
                     lastName,
                     description,
-                    image,
+                    link,
                 );
             }
         });
@@ -91,7 +91,7 @@ export class ArtistJSONService implements ArtistService {
                     artist.firstName,
                     artist.lastName,
                     artist.description,
-                    artist.image,
+                    artist.link,
                 );
             }
         });
@@ -121,7 +121,7 @@ export class ArtistJSONService implements ArtistService {
                     artist.firstName,
                     artist.lastName,
                     artist.description,
-                    artist.image,
+                    artist.link,
                 ),
             );
         });

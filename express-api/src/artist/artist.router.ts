@@ -35,7 +35,7 @@ export class ArtistRouter {
                     req.body.firstName,
                     req.body.lastName,
                     req.body.description,
-                    req.body.image,
+                    req.body.link,
                 );
                 res.status(200).json(result);
             } catch (error: unknown) {
@@ -50,7 +50,7 @@ export class ArtistRouter {
                     req.body.firstName,
                     req.body.lastName,
                     req.body.description,
-                    req.body.image,
+                    req.body.link,
                 );
                 res.status(200).json(result);
             } catch (error: unknown) {

@@ -1,11 +1,11 @@
 <script setup>
 import { artworksService } from '@/_services';
 import { onBeforeMount, ref } from 'vue';
-import PopinArtworkComponent from '@/components/PopinArtworkComponent.vue';
-import IconPlusSvg from '@/components/icons/IconPlusSvg.vue';
 import GalleryItemComponent from '@/components/gallery/GalleryItemComponent.vue';
 import NotificationComponent from '@/components/NotificationComponent.vue';
 import IconSuccessSvg from '@/components/icons/IconSuccessSvg.vue';
+import HeadContentComponent from '@/components/HeadContentComponent.vue';
+import GalleryPopinComponent from '@/components/gallery/GalleryPopinComponent.vue';
 
 let artworks = ref([]);
 let artSelected = ref(null);
@@ -96,19 +96,19 @@ onBeforeMount(fetchData);
 
 <template>
 	<section class='gallery'>
-		<div class='gallery__head'>
-			<h1>La galerie</h1>
-			<p>
+		<HeadContentComponent @click='openPopinByType(null, "add")'>
+			<template v-slot:title>
+				La galerie
+			</template>
+			<template v-slot:text>
 				La galerie d'art est un lieu d'exposition d'œuvres d'art. Elle peut être publique ou privée, appartenir à un
-				État,
-				à une collectivité locale, à une entreprise ou à un particulier. Elle peut être spécialisée dans un domaine
+				État, à une collectivité locale, à une entreprise ou à un particulier. Elle peut être spécialisée dans un domaine
 				artistique particulier (peinture, sculpture, photographie, etc.) ou présenter des œuvres de tous types.
-			</p>
-			<button class='btn btn-reverse' @click='openPopinByType(null, "add")'>
+			</template>
+			<template v-slot:button>
 				Ajouter une œuvre
-				<IconPlusSvg />
-			</button>
-		</div>
+			</template>
+		</HeadContentComponent>
 
 		<div class='gallery__content'>
 			<GalleryItemComponent v-for='artwork in artworks'
@@ -120,7 +120,7 @@ onBeforeMount(fetchData);
 		</div>
 
 		<transition>
-			<PopinArtworkComponent v-if='showTypePopin(typePopin)'
+			<GalleryPopinComponent v-if='showTypePopin(typePopin)'
 														 :type='typePopin'
 														 :art='artSelected'
 														 @close='closePopin'

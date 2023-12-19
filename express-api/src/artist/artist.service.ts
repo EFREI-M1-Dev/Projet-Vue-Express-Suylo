@@ -4,14 +4,14 @@ export interface ArtistService {
         firstName: string,
         lastName: string,
         description: string,
-        image: string,
+        link: string,
     ): Artist;
     updateById(
         id: number,
         firstName: string,
         lastName: string,
         description: string,
-        image: string,
+        link: string,
     ): Artist;
     findAll(): Artist[];
     findById(id: number): Artist | null;

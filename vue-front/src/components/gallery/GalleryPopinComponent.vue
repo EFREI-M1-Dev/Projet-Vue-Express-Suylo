@@ -1,11 +1,11 @@
 <script setup>
 import { onBeforeMount } from 'vue';
 import { artistsService } from '@/_services';
-import PopinContentView from '@/views/artworks/PopinContentView.vue';
-import PopinAddView from '@/views/artworks/PopinAddView.vue';
 import IconCloseSvg from '@/components/icons/IconCloseSvg.vue';
-import PopinEditView from '@/views/artworks/PopinEditView.vue';
-import PopinDeleteView from '@/views/artworks/PopinDeleteView.vue';
+import GalleryPopinAdd from '@/views/gallery/GalleryPopinAdd.vue';
+import GalleryPopinUpdate from '@/views/gallery/GalleryPopinUpdate.vue';
+import GalleryPopinDelete from '@/views/gallery/GalleryPopinDelete.vue';
+import GalleryPopinView from '@/views/gallery/GalleryPopinView.vue';
 
 const props = defineProps({
 	type: String,
@@ -32,21 +32,21 @@ const showNotification = async () => { 	emit('notif'); };
 	<section class='popin' @click='closePopin'>
 		<div class='popin__content' @click.stop>
 			<div class='popin__content__layout'>
-				<PopinContentView v-if='props.type === "view"'
+				<GalleryPopinView v-if='props.type === "view"'
 													:art='props.art' />
 
-				<PopinAddView v-else-if='props.type === "add"'
+				<GalleryPopinAdd v-else-if='props.type === "add"'
 											@refresh='refreshArtworksList'
 											@close='closePopin'
 											@notif='showNotification'/>
 
-				<PopinEditView v-else-if='props.type === "edit"'
+				<GalleryPopinUpdate v-else-if='props.type === "edit"'
 											 :art='props.art'
 											 @refresh='refreshArtworksList'
 											 @close='closePopin'
 											 @notif='showNotification'/>
 
-				<PopinDeleteView v-else-if='props.type === "delete"'
+				<GalleryPopinDelete v-else-if='props.type === "delete"'
 											 :art='props.art'
 											 @refresh='refreshArtworksList'
 											 @close='closePopin'
@@ -84,6 +84,7 @@ const showNotification = async () => { 	emit('notif'); };
 			background-color: $white;
 			position: relative;
 			pointer-events: auto;
+			grid-template-rows: 666px;
 		}
 
 		&__text {

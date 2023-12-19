@@ -4,6 +4,6 @@ export class Artist {
         public firstName: string,
         public lastName: string,
         public description: string,
-        public image: string,
+        public link: string,
     ) {}
 }
