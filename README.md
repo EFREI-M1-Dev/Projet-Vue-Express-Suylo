@@ -38,3 +38,6 @@ npm run preview
 ![galerie.png](utils/galerie.png)
 
 ![artistes.png](utils/artistes.png)
+
+## Author
+[Fredray-21](https://github.com/Fredray-21)
