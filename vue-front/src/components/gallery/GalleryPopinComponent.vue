@@ -61,7 +61,7 @@ const showNotification = async () => { 	emit('notif'); };
 </template>
 
 <style lang='scss'>
-.popin {
+.popin{
 	content: '';
 	position: fixed;
 	top: 0;
